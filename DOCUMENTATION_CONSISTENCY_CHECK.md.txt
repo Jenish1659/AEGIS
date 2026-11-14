@@ -1,0 +1,1102 @@
+# AEGIS – Full Documentation Consistency Check
+
+**Document Type:** Documentation Audit and Validation Guide  
+**Project:** AEGIS – Task-Aware Runtime Security Gateway for Autonomous AI Agents  
+**Purpose:** Verify that all project documentation is complete, technically consistent, secure, and ready for implementation.  
+**Review Status:** Pending  
+**Implementation Status:** Not started
+
+---
+
+# 1. Purpose
+
+This document defines the complete process for reviewing all AEGIS project documentation before starting source code development.
+
+The purpose is not simply to check whether all Markdown files exist.
+
+The review must verify that:
+
+- Every document follows the same project concept.
+- Technical decisions are consistent across files.
+- Security rules do not conflict.
+- Architecture and implementation instructions match.
+- API definitions match backend requirements.
+- Database structures match application workflows.
+- OPA policies match the Task Contract design.
+- Gemini has clearly defined limitations.
+- Frontend features match available backend functionality.
+- Testing requirements cover the main security risks.
+- Development phases follow the correct implementation order.
+
+The reviewer must inspect the actual contents of every document.
+
+**Important:** Never mark a check as PASS simply because a document mentions the required topic. The actual content must be reviewed.
+
+---
+
+# 2. Documents Included in the Review
+
+The following 15 documentation files must be reviewed.
+
+## 2.1 Root Documentation
+
+| No. | File | Main Review Purpose |
+|---|---|---|
+| 1 | `README.md` | Project introduction, setup and overview |
+| 2 | `PRD.md` | Requirements, goals and MVP scope |
+| 3 | `ARCHITECTURE.md` | System architecture and request flow |
+| 4 | `AGENT_RULES.md` | Coding and security instructions |
+| 5 | `DEVELOPMENT_PHASES.md` | Development order and milestones |
+| 6 | `DESIGN_SYSTEM.md` | Visual design rules |
+| 7 | `UI_UX.md` | Frontend screens and user workflows |
+| 8 | `BACKEND.md` | Backend structure and responsibilities |
+| 9 | `PROJECT_STATE.md` | Actual project progress |
+
+## 2.2 Technical Documentation
+
+| No. | File | Main Review Purpose |
+|---|---|---|
+| 10 | `docs/SECURITY_MODEL.md` | Threats, trust boundaries and security rules |
+| 11 | `docs/API_SPECIFICATION.md` | API routes, request and response structures |
+| 12 | `docs/DATABASE_DESIGN.md` | Database tables and relationships |
+| 13 | `docs/OPA_POLICY_DESIGN.md` | Policy evaluation and authorization |
+| 14 | `docs/GEMINI_INTEGRATION.md` | AI context analysis and model boundaries |
+| 15 | `docs/TESTING_STRATEGY.md` | Testing and validation requirements |
+
+If a required file is missing, report it. Do not silently create a replacement or remove it from the review.
+
+---
+
+# 3. Review Rules
+
+The documentation reviewer must follow these rules.
+
+1. Read all 15 files before making final conclusions.
+2. Do not assume that two similar statements mean the same thing.
+3. Compare related sections across multiple files.
+4. Identify contradictions, missing details and unclear instructions.
+5. Verify technical claims against the selected technology and its actual capabilities.
+6. Do not invent features that have not been approved.
+7. Do not remove important requirements just to make documents shorter.
+8. Do not change the project concept without approval.
+9. Do not claim that a feature is implemented when it is only planned.
+10. Preserve the distinction between MVP features and future improvements.
+11. Never weaken a security rule to resolve a documentation conflict.
+12. Record all identified problems before modifying documents.
+13. Apply corrections consistently across every affected file.
+14. Recheck corrected documents after making changes.
+15. Do not start application development during this documentation review.
+
+---
+
+# 4. Canonical Project Definition
+
+Every document must describe AEGIS using the same core definition.
+
+**AEGIS is a task-aware runtime security gateway for autonomous AI agents. It verifies whether a requested tool action is permitted by the agent's authenticated identity, active Task Contract, resource scope, and security policies before allowing execution.**
+
+The following concepts must remain consistent.
+
+| Concept | Canonical Definition |
+|---|---|
+| Project | AEGIS |
+| Main purpose | Task-aware runtime security |
+| Main innovation | Intent-to-Action Security Verification |
+| Security layer | Application-layer gateway |
+| Authorization authority | OPA policy decision |
+| Policy enforcement | AEGIS backend gateway |
+| AI analysis | Gemini advisory context analysis |
+| Decisions | ALLOW, BLOCK, REVIEW |
+| Permission model | Least privilege and default deny |
+| Initial environment | Local MVP |
+| Initial tools | Simulated agents and mock protected tools |
+| Database | SQLite for MVP |
+| Future database | PostgreSQL |
+| Approval | Authorized human review for selected requests |
+
+Do not allow different documents to introduce different definitions for the same component.
+
+---
+
+# 5. Critical Architecture Consistency
+
+This section is mandatory.
+
+The architecture must describe one clear and consistent request flow.
+
+## 5.1 Approved Request Flow
+
+The expected flow is:
+
+```text
+AI Agent
+   |
+   v
+Agent Authentication
+   |
+   v
+Request Validation
+   |
+   v
+Active Task Contract Validation
+   |
+   v
+Deterministic Security Checks
+   |
+   +---- Mandatory violation? ---- YES ----> BLOCK
+   |
+   NO
+   |
+   v
+Is Additional Context Required?
+   |
+   +---- NO -----------------------------+
+   |                                     |
+   +---- YES --> Gemini Advisory Analysis
+                                         |
+                                         v
+                                  Trusted Backend Input
+                                         |
+                                         v
+                                   Final OPA Decision
+                                         |
+                   +---------------------+------------------+
+                   |                     |                  |
+                   v                     v                  v
+                 ALLOW                 BLOCK              REVIEW
+                   |                     |                  |
+                   v                     v                  v
+             Tool Execution          Reject Request     Human Review
+                   |                                        |
+                   v                                        v
+              Audit Record                              Revalidation
+```
+
+The implementation may refine the flow, but every document must describe the same approved sequence.
+
+## 5.2 Important Architecture Rules
+
+- Agent authentication must happen before trusting agent identity.
+- Agent identity must come from validated authentication, not an untrusted request-body field.
+- Task Contracts must be stored and validated by the backend.
+- Agents must not create or modify their own trusted permissions.
+- Deterministic mandatory restrictions must not depend on Gemini.
+- Gemini should only be called when additional context is genuinely required.
+- Gemini output must be validated before use.
+- OPA must make the final policy decision.
+- The backend gateway must enforce the decision.
+- A BLOCK decision must prevent tool execution.
+- A REVIEW decision must prevent execution until approval and revalidation.
+- An ALLOW decision permits execution only through the protected gateway.
+
+## 5.3 Architecture Conflict to Check
+
+Do not allow one document to describe:
+
+- OPA making the final decision before Gemini analysis.
+
+While another document describes:
+
+- Gemini analysis happening before the final OPA decision.
+
+The approved design is:
+
+**Authentication → Task Contract → Deterministic Checks → Optional Gemini Analysis → Final OPA Decision → Gateway Enforcement.**
+
+A deterministic hard violation can be blocked before Gemini or OPA because it must never be overridden.
+
+If a different architecture is intentionally selected, update this document and every related document together.
+
+---
+
+# 6. Security Model Consistency
+
+Review `SECURITY_MODEL.md`, `AGENT_RULES.md`, `BACKEND.md`, `ARCHITECTURE.md`, and `PRD.md`.
+
+Verify the following:
+
+- [ ] Default-deny behavior is defined consistently.
+- [ ] Fail-closed behavior is clearly explained.
+- [ ] Agent identity is authenticated.
+- [ ] Client-provided identity is not trusted.
+- [ ] Task Contracts are controlled by the backend.
+- [ ] Tool permissions are explicitly defined.
+- [ ] Operation permissions are explicitly defined.
+- [ ] Resource restrictions are included.
+- [ ] Protected tools are accessed through the gateway.
+- [ ] Agents do not receive direct protected-tool credentials.
+- [ ] OPA is private to the backend.
+- [ ] Gemini cannot grant permissions.
+- [ ] Gemini cannot override mandatory restrictions.
+- [ ] Approval is restricted to authorized reviewers.
+- [ ] Approval is bound to the exact request.
+- [ ] Expired approvals are rejected.
+- [ ] Requests are revalidated before execution.
+- [ ] Sensitive credentials are not written to audit logs.
+- [ ] Invalid policy responses do not allow execution.
+- [ ] Service failures do not silently allow protected actions.
+
+## 6.1 Fail-Closed Behavior
+
+The following cases must be handled consistently.
+
+| Situation | Required Behavior |
+|---|---|
+| Invalid agent credentials | BLOCK |
+| Missing Task Contract | BLOCK |
+| Expired or inactive contract | BLOCK |
+| Mandatory permission violation | BLOCK |
+| OPA unavailable | No execution |
+| OPA response invalid | No execution |
+| Gemini unavailable when required | REVIEW or BLOCK |
+| Gemini returns invalid structured data | REVIEW or BLOCK |
+| Approval expired | No execution |
+| Approval does not match request | No execution |
+| Protected tool unavailable | Record execution failure |
+
+The exact error response and audit behavior should be defined in the relevant technical documents.
+
+---
+
+# 7. Task Contract Consistency
+
+Review the Task Contract design in:
+
+- `PRD.md`
+- `ARCHITECTURE.md`
+- `BACKEND.md`
+- `DATABASE_DESIGN.md`
+- `OPA_POLICY_DESIGN.md`
+- `API_SPECIFICATION.md`
+
+All files must agree on the Task Contract structure.
+
+At minimum, it should define:
+
+- Contract ID.
+- Agent ID.
+- Task description.
+- Allowed tools.
+- Allowed operations.
+- Allowed resources or resource scope.
+- Approval requirements.
+- Contract status.
+- Contract version.
+- Validity period, if supported.
+
+## 7.1 Approval Requirements
+
+Use one consistent structure across all documents.
+
+Example:
+
+```json
+{
+  "approval_requirements": {
+    "operations": [
+      "export"
+    ],
+    "resources": [
+      "finance_reports"
+    ]
+  }
+}
+```
+
+Do not describe `approval_requirements` as a simple string in one file and an object in another.
+
+The database, API schema, backend validation and OPA input must use compatible structures.
+
+## 7.2 Contract Versioning
+
+Verify that:
+
+- Contract updates are versioned.
+- Old contract versions can be identified.
+- Requests are evaluated against the correct active version.
+- Approval cannot silently remain valid after a relevant contract change.
+- Audit records identify the contract version used for the decision.
+
+---
+
+# 8. OPA Policy Consistency
+
+Review:
+
+- `ARCHITECTURE.md`
+- `BACKEND.md`
+- `AGENT_RULES.md`
+- `OPA_POLICY_DESIGN.md`
+- `SECURITY_MODEL.md`
+- `TESTING_STRATEGY.md`
+
+Verify that all documents agree on the following:
+
+1. OPA is the Policy Decision Point (PDP).
+2. AEGIS gateway is the Policy Enforcement Point (PEP).
+3. The backend creates trusted policy input.
+4. Agents cannot send policy input directly to OPA.
+5. The default decision is BLOCK.
+6. Mandatory restrictions cannot be overridden.
+7. Review conditions produce REVIEW.
+8. Only valid authorization produces ALLOW.
+9. Missing or invalid OPA results prevent execution.
+10. The gateway enforces the final decision.
+
+## 8.1 Decision Priority
+
+Use the following priority:
+
+```text
+BLOCK > REVIEW > ALLOW
+```
+
+Meaning:
+
+- If a mandatory restriction is violated, BLOCK.
+- If the request needs approval or cannot be safely resolved, REVIEW.
+- ALLOW only when all required checks pass.
+
+No document should suggest that a Gemini recommendation can override a mandatory BLOCK condition.
+
+## 8.2 OPA Input and Output
+
+The policy input structure must match the backend's trusted data model.
+
+Verify consistency for:
+
+- Agent identity.
+- Task Contract.
+- Contract version.
+- Tool name.
+- Operation.
+- Resource.
+- Deterministic security results.
+- Validated context signals.
+- Approval state, where applicable.
+
+The policy output should use one documented response structure containing at least:
+
+- Decision.
+- Reason code.
+- Human-readable reason.
+
+The backend must validate the response before enforcing it.
+
+## 8.3 Policy Testing
+
+The policy documentation and testing strategy must agree on:
+
+- Rego version and syntax.
+- Policy package and rule names.
+- Test directory.
+- Expected decision cases.
+- Default-deny behavior.
+- BLOCK priority.
+- REVIEW behavior.
+- Invalid input handling.
+
+The documented OPA test command must be verified against the actual installed OPA version.
+
+---
+
+# 9. Gemini Integration Consistency
+
+Review:
+
+- `GEMINI_INTEGRATION.md`
+- `BACKEND.md`
+- `ARCHITECTURE.md`
+- `AGENT_RULES.md`
+- `SECURITY_MODEL.md`
+- `TESTING_STRATEGY.md`
+
+Gemini must have one clearly defined role.
+
+**Gemini provides advisory context analysis. It is not the authorization authority.**
+
+Check the following:
+
+- [ ] The same Google GenAI SDK is specified everywhere.
+- [ ] The model ID is configurable.
+- [ ] API keys are backend-only.
+- [ ] Structured responses are validated.
+- [ ] Gemini does not execute protected tools.
+- [ ] Gemini does not directly modify Task Contracts.
+- [ ] Gemini does not grant permissions.
+- [ ] Gemini does not override OPA.
+- [ ] Gemini is not called for every request without a reason.
+- [ ] Mandatory security checks do not depend on Gemini.
+- [ ] Gemini failures have a defined safe outcome.
+- [ ] Model output is treated as untrusted advisory data.
+- [ ] Prompt injection risks and model limitations are documented.
+- [ ] Tests can run without a real Gemini API call.
+
+## 9.1 Model Configuration
+
+The model ID must be stored in configuration rather than repeated as a hardcoded value across the source code and documentation.
+
+Check that the selected model name is valid and available when implementation begins.
+
+Do not assume that free API quota, model availability, response format, or pricing will remain unchanged.
+
+## 9.2 AI Decision Boundary
+
+The following behavior is not allowed:
+
+```text
+Gemini says ALLOW
+       |
+       v
+Execute protected tool
+```
+
+The expected behavior is:
+
+```text
+Gemini Advisory Analysis
+          |
+          v
+Backend Validates Output
+          |
+          v
+OPA Final Policy Decision
+          |
+          v
+Gateway Enforces Decision
+```
+
+---
+
+# 10. API Specification Consistency
+
+Review:
+
+- `API_SPECIFICATION.md`
+- `BACKEND.md`
+- `ARCHITECTURE.md`
+- `UI_UX.md`
+- `DATABASE_DESIGN.md`
+
+Check every documented API route.
+
+For each endpoint, verify:
+
+- HTTP method.
+- Route path.
+- Authentication requirement.
+- Required role or permission.
+- Request body.
+- Response body.
+- Status codes.
+- Validation rules.
+- Error format.
+- Database effects.
+- Audit requirements.
+
+## 10.1 API Consistency Checklist
+
+- [ ] Agent registration and management routes are defined.
+- [ ] Agent authentication routes are defined.
+- [ ] Task Contract routes are defined.
+- [ ] Runtime gateway route is defined.
+- [ ] Approval routes are defined.
+- [ ] Audit routes are defined.
+- [ ] Dashboard routes are defined.
+- [ ] Authentication rules are consistent.
+- [ ] Request and response schemas are consistent.
+- [ ] Frontend-required endpoints exist.
+- [ ] Unauthorized requests have defined responses.
+- [ ] Invalid requests have defined responses.
+- [ ] Duplicate request handling is defined where needed.
+- [ ] Sensitive information is not returned unnecessarily.
+
+Do not invent API endpoints just to make the frontend easier to build.
+
+If an endpoint is needed but missing, record it as a documentation gap.
+
+---
+
+# 11. Database Design Consistency
+
+Review:
+
+- `DATABASE_DESIGN.md`
+- `API_SPECIFICATION.md`
+- `BACKEND.md`
+- `ARCHITECTURE.md`
+- `SECURITY_MODEL.md`
+
+Verify that the database design supports all required workflows.
+
+Check the presence and relationships of the relevant entities:
+
+- Agents.
+- Agent credentials.
+- Task Contracts.
+- Contract versions.
+- Tools.
+- Users and sessions.
+- Requests.
+- Decisions.
+- Approvals.
+- Executions.
+- Audit records.
+
+## 11.1 Database Validation
+
+- [ ] Primary keys are defined.
+- [ ] Foreign keys are defined.
+- [ ] Relationships are correct.
+- [ ] Required fields are marked non-null.
+- [ ] Unique constraints are identified.
+- [ ] Useful indexes are defined.
+- [ ] Timestamps are included where required.
+- [ ] Contract versioning is supported.
+- [ ] Approval status is stored.
+- [ ] Execution outcome is stored separately from authorization decision.
+- [ ] Audit records contain sufficient trace information.
+- [ ] Credentials are stored securely.
+- [ ] Sensitive information is excluded from logs.
+- [ ] Database migrations are supported.
+
+## 11.2 Important Distinction
+
+An authorization decision and a tool execution result are not the same thing.
+
+Example:
+
+```text
+Authorization Decision: ALLOW
+Execution Outcome: FAILED
+```
+
+The request was permitted, but the protected tool failed.
+
+The database must not treat this as a successful execution.
+
+Similarly:
+
+```text
+Authorization Decision: BLOCK
+Execution Outcome: NOT_EXECUTED
+```
+
+The blocked action must not be recorded as executed.
+
+## 11.3 Audit Integrity
+
+Do not claim that ordinary SQLite or PostgreSQL audit tables are cryptographically tamper-proof.
+
+If stronger tamper detection is required in the future, define and implement a separate integrity mechanism.
+
+---
+
+# 12. Human Approval Consistency
+
+Review:
+
+- `PRD.md`
+- `UI_UX.md`
+- `API_SPECIFICATION.md`
+- `DATABASE_DESIGN.md`
+- `BACKEND.md`
+- `SECURITY_MODEL.md`
+- `OPA_POLICY_DESIGN.md`
+
+Verify:
+
+- REVIEW prevents execution.
+- Only authorized reviewers can decide.
+- Approval is linked to the exact request.
+- Approval cannot be reused for another request.
+- Approval expires when its validity period ends.
+- Rejected requests cannot execute.
+- Approved requests are revalidated.
+- Contract and policy changes are considered before execution.
+- Approval decisions are audited.
+
+An approval must not become a general permission that allows an agent to perform unrelated future operations.
+
+---
+
+# 13. Protected Tool and Gateway Consistency
+
+Review:
+
+- `ARCHITECTURE.md`
+- `BACKEND.md`
+- `AGENT_RULES.md`
+- `SECURITY_MODEL.md`
+- `TESTING_STRATEGY.md`
+
+The documents must explain how protected tools are accessed.
+
+Check:
+
+- [ ] Every protected tool request passes through the gateway.
+- [ ] Agents do not receive direct tool credentials.
+- [ ] Tool adapters validate the permitted operation.
+- [ ] The gateway checks the final authorization result.
+- [ ] BLOCK requests never reach protected tools.
+- [ ] REVIEW requests wait for approval.
+- [ ] Tool execution outcomes are recorded.
+- [ ] Tool failures are handled safely.
+- [ ] Direct bypass attempts are considered.
+
+For the MVP, if mock tools run inside the same Python process, do not claim strong network or process isolation.
+
+If the demonstration claims that direct access is prevented by network boundaries, use a separately isolated mock tool service and test that the agent cannot call it directly.
+
+Document exactly what level of isolation is implemented.
+
+---
+
+# 14. Frontend and UI/UX Consistency
+
+Review:
+
+- `DESIGN_SYSTEM.md`
+- `UI_UX.md`
+- `PRD.md`
+- `API_SPECIFICATION.md`
+- `ARCHITECTURE.md`
+
+Check that:
+
+- All planned pages are listed.
+- Every page has a defined purpose.
+- Navigation matches the documented pages.
+- Dashboard metrics have a defined data source.
+- Agent management features have backend support.
+- Task Contract management has backend support.
+- Request monitoring matches API capabilities.
+- Approval screens match approval APIs.
+- Audit history matches stored audit records.
+- Error and loading states are documented.
+- Empty states are documented.
+- Responsive behavior is defined.
+- Light and dark theme rules are consistent.
+- Status colors have consistent meanings.
+
+The frontend must not make authorization decisions.
+
+It may display security decisions returned by the backend, but the backend and OPA remain responsible for authorization.
+
+---
+
+# 15. Development Phase Consistency
+
+Review:
+
+- `DEVELOPMENT_PHASES.md`
+- `PROJECT_STATE.md`
+- `README.md`
+- `ARCHITECTURE.md`
+- `BACKEND.md`
+- `TESTING_STRATEGY.md`
+
+Verify that the development phases follow the actual dependency order.
+
+The expected high-level order is:
+
+1. Documentation finalization.
+2. Repository and environment setup.
+3. Database setup and models.
+4. Agent authentication and Task Contracts.
+5. Mock agents and tools.
+6. Gateway implementation.
+7. OPA integration.
+8. Gemini integration.
+9. Approval and audit implementation.
+10. Frontend development.
+11. Integration and security testing.
+12. Final verification and documentation update.
+
+The exact order can be adjusted if dependencies justify it, but it must remain consistent across the project.
+
+## 15.1 Project State Accuracy
+
+`PROJECT_STATE.md` must report actual progress.
+
+Do not mark:
+
+- Backend complete before implementation.
+- Frontend complete before implementation.
+- OPA integration complete before testing.
+- Gemini integration complete before verification.
+- Security testing complete before test results exist.
+
+Use clear statuses:
+
+- NOT STARTED
+- IN PROGRESS
+- BLOCKED
+- COMPLETED
+- VERIFIED
+
+COMPLETED and VERIFIED are not interchangeable. A feature may be implemented but still require testing.
+
+---
+
+# 16. Testing Consistency
+
+Review:
+
+- `TESTING_STRATEGY.md`
+- `AGENT_RULES.md`
+- `BACKEND.md`
+- `OPA_POLICY_DESIGN.md`
+- `GEMINI_INTEGRATION.md`
+- `SECURITY_MODEL.md`
+
+Verify that every important security rule has at least one corresponding test.
+
+## 16.1 Required Security Test Cases
+
+| Test Case | Expected Result |
+|---|---|
+| Valid agent requests permitted operation | ALLOW |
+| Invalid agent credentials | BLOCK |
+| Agent requests forbidden operation | BLOCK |
+| Agent requests resource outside scope | BLOCK |
+| Read-only task attempts delete | BLOCK |
+| Missing Task Contract | BLOCK |
+| Expired Task Contract | BLOCK |
+| OPA unavailable | No execution |
+| Invalid OPA response | No execution |
+| Gemini unavailable when required | REVIEW or BLOCK |
+| Gemini returns invalid output | REVIEW or BLOCK |
+| Request requires approval | REVIEW |
+| Unauthorized reviewer attempts approval | Rejected |
+| Approval has expired | No execution |
+| Approval belongs to another request | No execution |
+| Protected tool fails after ALLOW | Execution failure recorded |
+| Agent attempts direct tool access | Rejected by the implemented boundary |
+
+## 16.2 Important Demo Test
+
+The Admin Agent must be given a read-only Task Contract while having access to the simulated database tool.
+
+It then attempts a delete operation.
+
+Expected outcome:
+
+```text
+Agent: Admin Agent
+
+Task: Read-only database inspection
+
+Requested Operation: DELETE
+
+AEGIS Decision: BLOCK
+
+Tool Execution: NOT EXECUTED
+
+Delete Calls: 0
+```
+
+The test must inspect the actual mock tool execution record.
+
+A BLOCK message displayed in the frontend alone is not enough to prove that the tool was protected.
+
+---
+
+# 17. Technology and Dependency Consistency
+
+Review every technology mentioned across the documents.
+
+Check:
+
+- Python version.
+- FastAPI.
+- Pydantic.
+- SQLAlchemy.
+- Alembic.
+- HTTPX.
+- Google GenAI SDK.
+- Gemini model configuration.
+- Open Policy Agent.
+- Rego.
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- React Router.
+- Zod.
+- Pytest.
+- Vitest.
+- React Testing Library.
+- Playwright.
+- SQLite.
+- PostgreSQL.
+
+Verify that:
+
+- Package names are correct.
+- Libraries have compatible versions.
+- Deprecated APIs are not recommended.
+- Installation commands are valid.
+- Configuration names match.
+- Backend and frontend dependencies are separated.
+- Optional tools are not presented as mandatory.
+- Unnecessary dependencies are not introduced.
+
+Do not add large frameworks or extra libraries without a clear requirement.
+
+---
+
+# 18. Documentation Quality Review
+
+Every file must be reviewed for writing quality.
+
+Check:
+
+- [ ] File has a clear title.
+- [ ] Purpose is explained.
+- [ ] Sections are organized logically.
+- [ ] Technical terms are used consistently.
+- [ ] No duplicate sections exist.
+- [ ] No contradictory instructions exist.
+- [ ] No incomplete sentences exist.
+- [ ] No unexplained abbreviations exist.
+- [ ] Code examples are readable.
+- [ ] Tables are correctly formatted.
+- [ ] Mermaid diagrams are valid.
+- [ ] File references point to existing documents.
+- [ ] Commands are technically valid.
+- [ ] Planned features are labeled correctly.
+- [ ] Completed features are backed by actual evidence.
+
+Do not rewrite good sections unnecessarily.
+
+Preserve useful details while correcting real problems.
+
+---
+
+# 19. Cross-Document Traceability
+
+The reviewer must check whether important requirements are reflected in all relevant documents.
+
+| Requirement | Documents That Must Agree |
+|---|---|
+| Agent authentication | PRD, Architecture, Backend, API, Database, Security |
+| Task Contracts | PRD, Architecture, Backend, API, Database, OPA |
+| Intent-to-Action verification | PRD, Architecture, Backend, OPA, Gemini |
+| Default deny | Security, Agent Rules, Backend, OPA, Testing |
+| ALLOW/BLOCK/REVIEW | PRD, Architecture, API, Backend, OPA, UI/UX |
+| Gemini advisory role | Architecture, Backend, Gemini, OPA, Security |
+| Human approval | PRD, Architecture, Backend, API, Database, UI/UX |
+| Audit logging | Architecture, Backend, API, Database, Testing |
+| Protected tool access | Architecture, Backend, Security, Agent Rules, Testing |
+| Dashboard | PRD, UI/UX, API, Design System |
+| Testing | Development Phases, Agent Rules, Testing Strategy |
+| Project progress | README, Project State, Development Phases |
+
+A requirement is not complete merely because it appears in one document.
+
+Its implementation requirements, API, data model, policy behavior and tests must agree wherever applicable.
+
+---
+
+# 20. Issues and Correction Register
+
+The reviewer must create a list of every identified problem.
+
+Use this format:
+
+| ID | File | Issue | Severity | Required Correction | Status |
+|---|---|---|---|---|---|
+| DOC-001 | Example file | Example conflict | High | Example correction | Open |
+
+Severity definitions:
+
+### CRITICAL
+A conflict or missing requirement that could create an unauthorized execution path, bypass security enforcement, or break a core security boundary.
+
+### HIGH
+A major architecture, database, API, or policy mismatch that could cause incorrect implementation.
+
+### MEDIUM
+An incomplete requirement, unclear workflow, missing test, or inconsistent technical detail.
+
+### LOW
+A formatting issue, minor wording problem, or small organizational improvement.
+
+Every issue must have a clear correction.
+
+Do not close an issue just because a sentence was changed. Verify that the correction is consistent across all affected files.
+
+---
+
+# 21. Required Audit Summary
+
+After reviewing the documentation, produce a final report in this format.
+
+## A. Review Summary
+
+- Total files expected: 15.
+- Total files found:
+- Total files reviewed:
+- Missing files:
+- Files requiring correction:
+- Critical issues:
+- High issues:
+- Medium issues:
+- Low issues:
+
+## B. Architecture Review
+
+Report whether:
+
+- Project definition is consistent.
+- Runtime request flow is consistent.
+- Gemini and OPA responsibilities are clear.
+- Gateway enforcement is properly defined.
+- Human approval is correctly designed.
+
+## C. Security Review
+
+Report whether:
+
+- Identity handling is safe.
+- Task Contracts are trusted.
+- Default deny is consistent.
+- Fail-closed behavior is consistent.
+- Direct tool access is addressed.
+- Approval is request-specific.
+- Audit logging is correctly designed.
+
+## D. Technical Review
+
+Report whether:
+
+- API specifications match backend design.
+- Database design supports the required workflows.
+- OPA input and output are consistent.
+- Gemini integration is technically correct.
+- Frontend requirements match backend APIs.
+- Testing covers security requirements.
+
+## E. Correction Summary
+
+List:
+
+- Files modified.
+- Sections modified.
+- Issues resolved.
+- Issues still open.
+- Decisions requiring user approval.
+
+## F. Final Readiness Decision
+
+Select exactly one:
+
+**NOT READY**
+
+Major missing files, critical security problems, or unresolved architecture conflicts remain.
+
+**READY AFTER CORRECTIONS**
+
+The documentation is mostly complete, but listed corrections must be completed before development.
+
+**READY FOR DEVELOPMENT**
+
+All required documents have been reviewed, critical and high issues have been resolved, important cross-document requirements agree, and no blocking documentation gaps remain.
+
+This decision means the documentation is ready to guide development. It does not mean the software has been built, tested, or proven secure.
+
+---
+
+# 22. Final Instructions for the Documentation Reviewer
+
+Follow this process in order:
+
+### Step 1 – Inspect
+
+Read all 15 files completely.
+
+Do not modify files during the first inspection.
+
+### Step 2 – Compare
+
+Compare related sections across all files.
+
+Pay special attention to architecture, Task Contracts, OPA, Gemini, database, APIs, approvals, and testing.
+
+### Step 3 – Report
+
+Create the issue register and identify every conflict or missing requirement.
+
+### Step 4 – Resolve
+
+Correct the documentation consistently.
+
+Do not change the approved project concept or remove security requirements without approval.
+
+### Step 5 – Recheck
+
+Read the corrected files again.
+
+Verify that corrections have not introduced new contradictions.
+
+### Step 6 – Validate
+
+Check:
+
+- Markdown structure.
+- Mermaid syntax.
+- JSON examples.
+- API route consistency.
+- Database field consistency.
+- Policy input/output consistency.
+- Commands and package names.
+- Cross-document references.
+
+### Step 7 – Final Report
+
+Provide the complete audit summary and final readiness decision.
+
+---
+
+# 23. Strict Restrictions
+
+The documentation reviewer must NOT:
+
+- Start writing application source code.
+- Create unnecessary files.
+- Delete existing documentation.
+- Rename files without approval.
+- Change the main AEGIS concept.
+- Add unapproved features.
+- Replace OPA with another authorization engine.
+- Give Gemini final authorization authority.
+- Remove the human approval workflow.
+- Claim security guarantees that are not supported.
+- Mark planned features as implemented.
+- Invent test results.
+- Hide unresolved issues.
+- Mark the project ready while critical issues remain.
+
+If a design decision cannot be resolved from the existing documents, report it as a decision required from the project owner instead of guessing.
+
+---
+
+# 24. Completion Criteria
+
+The documentation review is complete only when:
+
+- All 15 required files have been inspected.
+- All major cross-document conflicts have been identified.
+- Critical and high-severity issues have been resolved.
+- Security requirements are consistent.
+- Architecture and request flow are consistent.
+- Task Contract structure is consistent.
+- API and database designs agree.
+- OPA and Gemini responsibilities are clear.
+- Approval and execution workflows agree.
+- Testing requirements cover important security risks.
+- All modified files have been rechecked.
+- The final audit report is complete.
+
+**Final principle: AEGIS development must begin from one consistent, reviewed, and technically clear documentation set—not from conflicting instructions spread across multiple files.**

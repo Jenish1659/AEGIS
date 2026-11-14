@@ -1,0 +1,444 @@
+# AEGIS — PROJECT STATE AND DEVELOPMENT MEMORY
+
+**Project:** AEGIS  
+**Document:** Project State  
+**Version:** 1.0  
+**Status:** Initial State Template  
+**Purpose:** Development Progress Tracking  
+**Last Updated:** 14 November 2026
+
+---
+
+# 1. PURPOSE
+
+This document maintains the current development state of AEGIS.
+
+It allows human developers and AI coding agents to understand:
+
+- Which development phase has been completed.
+- Which phase is currently active.
+- Which files have been created or modified.
+- Which features are implemented.
+- Which features are being developed.
+- Which tests have passed or failed.
+- Which problems remain unresolved.
+- What must be done next.
+
+This file is the project's progress memory.
+
+It must reflect the actual state of the source code, not the planned state or assumptions made by an AI coding agent.
+
+# 2. PROJECT INFORMATION
+
+| Field | Current Value |
+|---|---|
+| Project Name | AEGIS |
+| Project Type | AI Agent Runtime Security Gateway |
+| Development Stage | Planning and Documentation |
+| Current Version | 0.1.0-dev |
+| Repository Status | Not yet confirmed |
+| Backend Status | Not started |
+| Frontend Status | Not started |
+| Database Status | Not started |
+| OPA Status | Not started |
+| Gemini Integration | Not started |
+| Security Testing | Not started |
+| Deployment | Not started |
+
+Update these values only when their actual status changes.
+
+# 3. DOCUMENTATION STATUS
+
+| Document | Status |
+|---|---|
+| PRD.md | Created |
+| ARCHITECTURE.md | Created |
+| AGENT_RULES.md | Created |
+| DEVELOPMENT_PHASES.md | Created |
+| DESIGN_SYSTEM.md | Created |
+| UI_UX.md | Created |
+| BACKEND.md | Created |
+| PROJECT_STATE.md | Created |
+
+Document status values:
+
+- NOT_STARTED
+- IN_PROGRESS
+- COMPLETED
+- NEEDS_REVIEW
+
+A document is COMPLETED only when it has been reviewed and approved.
+
+# 4. CURRENT DEVELOPMENT PHASE
+
+**Current Phase:** Phase 0 — Documentation and Project Readiness
+
+**Phase Status:** IN_PROGRESS
+
+**Current Objective:**
+
+Prepare all project documentation, check consistency and approve the implementation plan before source-code development.
+
+**Current Task:**
+
+Review the eight initial Markdown documents and verify that:
+
+- Product requirements are complete.
+- Architecture is consistent with product requirements.
+- Coding-agent rules do not conflict with architecture.
+- Development phases are in the correct order.
+- Design standards and UI requirements are aligned.
+- Backend specifications follow the approved architecture.
+
+**Next Phase:** Phase 1 — Repository and Development Environment
+
+Do not change this section automatically based only on generated source files. Verify the actual work first.
+
+# 5. COMPLETED WORK
+
+Record completed work here.
+
+Initial entry:
+
+### Documentation Foundation
+
+**Status:** Initial documents created.
+
+Documents:
+
+- PRD.md
+- ARCHITECTURE.md
+- AGENT_RULES.md
+- DEVELOPMENT_PHASES.md
+- DESIGN_SYSTEM.md
+- UI_UX.md
+- BACKEND.md
+- PROJECT_STATE.md
+
+**Verification:** Documents have been drafted. Source code implementation has not yet started.
+
+Important: Document creation does not mean the application features are implemented.
+
+# 6. CURRENT WORK
+
+Use this section to track active development tasks.
+
+| Field | Description |
+|---|---|
+| Active Phase | Current development phase |
+| Current Task | Specific feature being implemented |
+| Assigned Agent | AI coding agent or developer |
+| Started At | Actual start time |
+| Related Files | Files being modified |
+| Expected Result | What should work when complete |
+| Current Status | IN_PROGRESS / BLOCKED / TESTING |
+
+If no implementation task is active, write:
+
+**No active source-code implementation task.**
+
+Do not leave old completed tasks listed as active.
+
+# 7. DEVELOPMENT PHASE TRACKER
+
+| Phase | Name | Status |
+|---|---|---|
+| 0 | Documentation and Readiness | IN_PROGRESS |
+| 1 | Repository and Environment Setup | NOT_STARTED |
+| 2 | Database and Data Models | NOT_STARTED |
+| 3 | Agent Identity and Task Contracts | NOT_STARTED |
+| 4 | Simulated Agents and Mock Tools | NOT_STARTED |
+| 5 | Runtime Security Gateway | NOT_STARTED |
+| 6 | OPA Policy Engine | NOT_STARTED |
+| 7 | Intent Verification and Gemini | NOT_STARTED |
+| 8 | Human Approval and Audit | NOT_STARTED |
+| 9 | React Security Dashboard | NOT_STARTED |
+| 10 | Integration and Security Testing | NOT_STARTED |
+| 11 | Finalization and Deployment Preparation | NOT_STARTED |
+
+Status must be based on actual implementation and testing.
+
+# 8. FEATURE IMPLEMENTATION TRACKER
+
+| Feature | Status | Verification |
+|---|---|---|
+| Agent Management | NOT_STARTED | Not tested |
+| Agent Authentication | NOT_STARTED | Not tested |
+| Task Contract Management | NOT_STARTED | Not tested |
+| Request Validation | NOT_STARTED | Not tested |
+| Runtime Gateway | NOT_STARTED | Not tested |
+| Intent Verification | NOT_STARTED | Not tested |
+| OPA Integration | NOT_STARTED | Not tested |
+| Gemini Integration | NOT_STARTED | Not tested |
+| ALLOW Decision | NOT_STARTED | Not tested |
+| BLOCK Decision | NOT_STARTED | Not tested |
+| REVIEW Decision | NOT_STARTED | Not tested |
+| Protected Mock Tools | NOT_STARTED | Not tested |
+| Human Approval | NOT_STARTED | Not tested |
+| Audit System | NOT_STARTED | Not tested |
+| Dashboard | NOT_STARTED | Not tested |
+| Security Testing | NOT_STARTED | Not tested |
+
+Update individual feature statuses only after implementation and verification.
+
+# 9. FILE CHANGE HISTORY
+
+Track important file creation, modification and removal.
+
+| Date | File | Change | Reason |
+|---|---|---|---|
+| 14 Nov 2026 | PRD.md | Initial creation | Define product requirements |
+| 14 Nov 2026 | ARCHITECTURE.md | Initial creation | Define system architecture |
+| 14 Nov 2026 | AGENT_RULES.md | Initial creation | Define coding-agent rules |
+| 14 Nov 2026 | DEVELOPMENT_PHASES.md | Initial creation | Define development roadmap |
+| 14 Nov 2026 | DESIGN_SYSTEM.md | Initial creation | Define visual design |
+| 14 Nov 2026 | UI_UX.md | Initial creation | Define UI and user experience |
+| 14 Nov 2026 | BACKEND.md | Initial creation | Define backend implementation |
+| 14 Nov 2026 | PROJECT_STATE.md | Initial creation | Track project progress |
+
+Future changes must include the actual date, file path, change and reason.
+
+Do not add changes that did not happen.
+
+# 10. TESTING HISTORY
+
+Maintain the real results of executed tests.
+
+| Date | Test Type | Test Name | Result | Details |
+|---|---|---|---|---|
+| — | — | No tests executed yet | NOT_STARTED | Source code not implemented |
+
+Possible result values:
+
+- PASSED
+- FAILED
+- BLOCKED
+- NOT_RUN
+
+Never mark an unexecuted test as PASSED.
+
+For important security tests, include:
+
+- Test case ID.
+- Expected behaviour.
+- Actual behaviour.
+- Test command.
+- Execution result.
+- Related code.
+- Failure details if applicable.
+
+# 11. KNOWN ISSUES
+
+List unresolved problems here.
+
+Initial state:
+
+**No source-code issues recorded yet.**
+
+Future issue format:
+
+| ID | Issue | Severity | Status | Related Component |
+|---|---|---|---|---|
+| ISSUE-001 | Description | HIGH / MEDIUM / LOW | OPEN | Component |
+
+Severity definitions:
+
+- CRITICAL: Direct threat to core security or data integrity.
+- HIGH: Major security or application failure.
+- MEDIUM: Important incorrect behaviour.
+- LOW: Minor issue or improvement.
+
+Critical issues must be resolved or explicitly handled before the affected functionality is marked complete.
+
+# 12. BLOCKERS AND DEPENDENCIES
+
+Record issues that prevent development from continuing.
+
+Examples:
+
+- Missing dependency.
+- Failed service connection.
+- Incompatible library.
+- Incorrect architecture.
+- Unavailable API service.
+- Failed security test.
+- Unresolved requirement.
+
+Initial state:
+
+**No implementation blockers recorded yet.**
+
+Every blocker must include:
+
+- Description.
+- Affected phase.
+- Affected files.
+- Expected solution.
+- Current status.
+
+# 13. ARCHITECTURE AND REQUIREMENT CHANGES
+
+Record approved changes to:
+
+- Technology stack.
+- Architecture.
+- API design.
+- Database structure.
+- Security model.
+- Task Contract structure.
+- Gemini integration.
+- OPA policies.
+
+Each change must contain:
+
+1. Original design.
+2. Approved change.
+3. Reason.
+4. Affected files.
+5. Required tests.
+6. Approval status.
+
+AI coding agents must not silently change the architecture.
+
+# 14. CURRENT TECHNOLOGY CONFIGURATION
+
+| Component | Selected Technology | Status |
+|---|---|---|
+| Backend | Python + FastAPI | Planned |
+| Validation | Pydantic | Planned |
+| Frontend | React + TypeScript + Vite | Planned |
+| Styling | Tailwind CSS | Planned |
+| Policy Engine | Open Policy Agent | Planned |
+| Policy Language | Rego | Planned |
+| AI Model | Gemini 3.8 Flash | Planned |
+| Database | SQLite | Planned |
+| Future Database | PostgreSQL | Future |
+| ORM | SQLAlchemy 2 | Planned |
+| Migrations | Alembic | Planned |
+| HTTP Client | HTTPX | Planned |
+| Testing | Pytest | Planned |
+| Code Quality | Ruff | Planned |
+| Version Control | Git + GitHub | Planned |
+| Containerization | Docker Compose | Optional |
+
+Change this table when the actual implementation is confirmed.
+
+Do not claim a technology has been integrated simply because it is listed in the project documentation.
+
+# 15. NEXT ACTIONS
+
+Maintain the immediate tasks in their execution order.
+
+Initial tasks:
+
+- [ ] Review all eight Markdown documents.
+- [ ] Check for conflicting requirements.
+- [ ] Approve the initial project architecture.
+- [ ] Confirm the development environment.
+- [ ] Create the AEGIS repository.
+- [ ] Prepare the approved folder structure.
+- [ ] Configure Python and FastAPI.
+- [ ] Configure React and TypeScript.
+- [ ] Configure local OPA.
+- [ ] Verify local SQLite connectivity.
+
+Do not begin the next major phase until its dependencies are ready.
+
+# 16. AI CODING AGENT UPDATE RULES
+
+The AI coding agent must follow these instructions whenever it completes a development task.
+
+1. Read the current PROJECT_STATE.md before starting a new task.
+2. Check the actual source files.
+3. Check the current Git status.
+4. Identify the active development phase.
+5. Work only on the approved task.
+6. Run relevant tests.
+7. Record actual test results.
+8. Update completed and active tasks.
+9. Record files created, modified and removed.
+10. Record unresolved issues.
+11. Record architecture changes if approved.
+12. Update the last-modified date.
+
+Do not rewrite the entire file unnecessarily.
+
+Update only the affected sections.
+
+Do not remove historical information simply to make the document shorter.
+
+Do not mark a task completed based only on generated code.
+
+# 17. DEVELOPMENT SESSION SUMMARY
+
+At the end of each important development session, record:
+
+**Date:**
+
+**Phase:**
+
+**Task:**
+
+**Work Completed:**
+
+**Files Created:**
+
+**Files Modified:**
+
+**Tests Executed:**
+
+**Tests Passed:**
+
+**Tests Failed:**
+
+**Known Issues:**
+
+**Next Task:**
+
+**Overall Phase Status:**
+
+This section provides a useful record when a different AI coding agent continues the project.
+
+# 18. FINAL PROJECT STATUS
+
+Use the following format when reporting overall progress.
+
+**Project State:** PLANNING / DEVELOPMENT / TESTING / RELEASE
+
+**Current Phase:** Phase Number and Name
+
+**Completed Phases:** List of verified completed phases.
+
+**Active Phase:** Current phase.
+
+**Blocked Phases:** Any blocked phase.
+
+**MVP Completion:** Not Started / In Progress / Testing / Completed.
+
+**Release Status:** Not Released / Local MVP / Public Release.
+
+Initial state:
+
+- Project Stage: PLANNING.
+- Source Code: NOT_STARTED.
+- MVP: NOT_STARTED.
+- Testing: NOT_STARTED.
+- Deployment: NOT_STARTED.
+
+Only update this summary based on verified project progress.
+
+# 19. IMPORTANT RULE
+
+PROJECT_STATE.md is a factual record, not a planning document.
+
+It must always describe what has actually happened.
+
+Planned, generated, implemented, tested and completed are different statuses.
+
+Never confuse them.
+
+**The purpose of this file is to ensure that every human developer and AI coding agent can continue AEGIS development without losing track of the actual project state.**
+
+---
+
+**END OF PROJECT_STATE.md**
